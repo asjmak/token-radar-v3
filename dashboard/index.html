@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Launch Radar — fitted-comp-2</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="mast-wrap">
+    <p class="kicker">Token launch radar · model <span id="m-version">fitted-comp-2</span></p>
+    <h1>Which tokenless protocol is worth farming next — priced by a model whose every part passed a blind test.</h1>
+    <p class="standfirst" id="m-standfirst">Loading the board…</p>
+    <div class="chips" id="m-chips"></div>
+  </div>
+</header>
+
+<main id="view-board">
+  <section class="panel" id="cover">
+    <h2>The model, on the cover</h2>
+    <div id="cover-body"></div>
+    <div class="charts">
+      <figure>
+        <figcaption>The fit: every comp the model learned from, at its TVL and its market cap, against the size curve. A dot is one traded protocol; amber dots are the ones the fitted price misses by more than ×2.</figcaption>
+        <div id="chart-fit"></div>
+      </figure>
+      <figure>
+        <figcaption>The odds: the share of protocols that record a token by each age (solid), and — for a protocol still tokenless at that age — the share of its peers that launched within the next two years (dashed). Both are read off the snapshot's own record.</figcaption>
+        <div id="chart-odds"></div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="panel integrity" id="integrity">
+    <h2>Integrity strip — this page re-checks its own claims</h2>
+    <ul id="checks"></ul>
+  </section>
+
+  <section class="panel">
+    <div class="controls">
+      <input id="q" type="search" placeholder="Search name or slug…">
+      <select id="f-category"><option value="">All categories</option></select>
+      <select id="f-chain"><option value="">All chains</option></select>
+      <select id="f-set">
+        <option value="">Whole board</option>
+        <option value="watchlist">Watchlist only</option>
+        <option value="early">Early (below the floor)</option>
+      </select>
+      <select id="f-verdict">
+        <option value="">Any verdict</option>
+        <option value="FARM">Farm</option>
+        <option value="THIN">Thin</option>
+        <option value="SKIP">Skip</option>
+      </select>
+      <select id="f-sort">
+        <option value="rank">Sort: expected value</option>
+        <option value="launch">Sort: launch value</option>
+        <option value="tvl">Sort: TVL</option>
+        <option value="odds">Sort: launch odds</option>
+        <option value="cheap">Sort: cheapest hour</option>
+      </select>
+    </div>
+    <p class="count" id="row-count"></p>
+    <div class="table-wrap">
+      <table id="board">
+        <thead>
+          <tr>
+            <th scope="col">#</th><th scope="col">Protocol</th><th scope="col">Category</th><th scope="col" class="num">TVL</th><th scope="col" class="num">7d</th>
+            <th scope="col" class="num">Age</th><th scope="col" class="num">Launch value</th><th scope="col" class="num">Odds</th>
+            <th scope="col" class="num">Expected</th><th scope="col">Farm verdict</th>
+          </tr>
+        </thead>
+        <tbody id="board-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Already trading — the peer evidence</h2>
+    <p class="note">These protocols record a token, so the board never ranks them. Their market caps are the
+    ground truth the model was fitted and blind-tested on; the largest 24 are shown at the market's own values.</p>
+    <div class="table-wrap">
+      <table id="live">
+        <thead>
+          <tr><th scope="col">Protocol</th><th scope="col">Symbol</th><th scope="col">Category</th><th scope="col" class="num">TVL</th><th scope="col" class="num">Market cap</th><th scope="col" class="num">mcap / TVL</th></tr>
+        </thead>
+        <tbody id="live-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <p id="m-source"></p>
+    <p>“Records no token” is DefiLlama's record, not proof a token does not exist. An implied value is this
+    board's own claim: what a launch would be worth if the protocol's record stayed as it is, weighted by the
+    chance — read off the snapshot's own history, and blind-tested like everything else here — that a launch comes at all.</p>
+  </footer>
+</main>
+
+<main id="view-detail" hidden>
+  <p><a href="#" id="back">← Back to the board</a></p>
+  <div id="detail"></div>
+</main>
+
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
